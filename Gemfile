@@ -13,6 +13,7 @@ gem 'puma', '~> 3.11'
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'bootstrap_form'
+gem 'simple_form'
 gem 'devise'
 
 # Use SCSS for stylesheets
