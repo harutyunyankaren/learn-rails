@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Blog</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,11 +11,8 @@
   </head>
 
   <body>
-    <% Category.all.each do |category| %>
-        <li>
-          <%= link_to category.name, posts_path(category: category.name) %>
-        </li>
-    <% end %>
+    <%= render 'layouts/navigation' %>
+
     <%= yield %>
   </body>
 </html>
