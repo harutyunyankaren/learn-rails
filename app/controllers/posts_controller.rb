@@ -66,6 +66,22 @@ class PostsController < ApplicationController
     end
   end
 
+  def hobby
+    posts_for_branch(params[:action])
+  end
+
+  def study
+    posts_for_branch(params[:action])
+  end
+
+  def team
+    posts_for_branch(params[:action])
+  end
+
+  def get_posts
+    Post.limit(30)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -75,5 +91,10 @@ class PostsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
       params.require(:post).permit(:title, :content, :category_id)
+    end
+
+    def posts_for_branch(branch)
+      @categories = Category.where(branch: branch)
+      @posts = get_posts.paginate(page: params[:page])
     end
 end
