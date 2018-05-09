@@ -17,6 +17,8 @@ gem 'simple_form'
 gem 'devise'
 gem 'faker'
 gem 'will_paginate', '~> 3.1.0'
+gem 'wdm'
+gem 'bcrypt-ruby', '3.1.1.rc1', :require => 'bcrypt'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
