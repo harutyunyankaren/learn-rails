@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   # GET /pages
   # GET /pages.json
   def index
-    @posts = Post.limit(5)
+    @posts = Post.limit(8)
   end
 
   # GET /pages/1

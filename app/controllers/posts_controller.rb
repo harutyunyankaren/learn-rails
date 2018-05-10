@@ -79,7 +79,7 @@ class PostsController < ApplicationController
   end
 
   def get_posts
-    Post.limit(30)
+    Post.limit(20)
   end
 
   private
@@ -95,6 +95,16 @@ class PostsController < ApplicationController
 
     def posts_for_branch(branch)
       @categories = Category.where(branch: branch)
-      @posts = get_posts.paginate(page: params[:page])
+      # @posts = get_posts.paginate(page: params[:page])
+
+      if params[:category].blank?
+        @posts = get_posts.paginate(page: params[:page])
+      else
+        @category_id = Category.find_by(name: params[:category]).id
+        @posts = Post.where(category_id: @category_id).limit(20).paginate(page: params[:page])
+      end
+      # @posts = Category.joins(:posts)
+      # render :json => @categories
+      # return
     end
 end

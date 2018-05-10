@@ -32,9 +32,8 @@ var mode = Math.floor(Math.random() * 2);
 
 // Randomly returns a color scheme
 function randomColorSet() {
-    var colorSet1 = ['#eeeeee',
-        '#e0f7eb'];
-    var colorSet2 = ['#eeeeee', '#e0f7eb'];
+    var colorSet1 = ['#eeeeee', '#f7f7f7'];
+    var colorSet2 = ['#eeeeee', '#fafbff', '#f7f7f7'];
 
     var randomSet = [colorSet1, colorSet2];
     return randomSet[Math.floor(Math.random() * randomSet.length )];
