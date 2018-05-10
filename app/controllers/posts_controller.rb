@@ -79,7 +79,21 @@ class PostsController < ApplicationController
   end
 
   def get_posts
-    Post.limit(20)
+    branch = params[:action]
+    search = params[:search]
+    category = params[:category]
+
+    if category.blank? && search.blank?
+      posts = Post.by_branch(branch).all
+    elsif category.blank? && search.present?
+      posts = Post.by_branch(branch).search(search)
+    elsif category.present? && search.blank?
+      posts = Post.by_category(branch, category)
+    elsif category.present? && search.present?
+      posts = Post.by_category(branch, category).search(search)
+    else
+    end
+
   end
 
   private
@@ -95,14 +109,14 @@ class PostsController < ApplicationController
 
     def posts_for_branch(branch)
       @categories = Category.where(branch: branch)
-      # @posts = get_posts.paginate(page: params[:page])
+      @posts = get_posts.paginate(page: params[:page])
 
-      if params[:category].blank?
-        @posts = get_posts.paginate(page: params[:page])
-      else
-        @category_id = Category.find_by(name: params[:category]).id
-        @posts = Post.where(category_id: @category_id).limit(20).paginate(page: params[:page])
-      end
+      # if params[:category].blank?
+      #   @posts = get_posts.paginate(page: params[:page])
+      # else
+      #   @category_id = Category.find_by(name: params[:category]).id
+      #   @posts = Post.where(category_id: @category_id).limit(20).paginate(page: params[:page])
+      # end
       # @posts = Category.joins(:posts)
       # render :json => @categories
       # return
