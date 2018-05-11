@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :redirect_if_not_signed_in, only: [:new]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   # GET /posts
@@ -19,6 +20,8 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
+    @branch = params[:branch]
+    @categories = Category.where(branch: @branch)
     @post = Post.new
   end
 
@@ -33,10 +36,10 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        format.html { redirect_to post_path(@post), notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
       else
-        format.html { render :new }
+        format.html { redirect_to root_path }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
@@ -95,7 +98,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :content, :category_id)
+      params.require(:post).permit(:title, :content, :category_id).merge(user_id: current_user.id)
     end
 
     def posts_for_branch(branch)
