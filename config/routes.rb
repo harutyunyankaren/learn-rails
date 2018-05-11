@@ -15,4 +15,13 @@ Rails.application.routes.draw do
       get 'team'
     end
   end  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  namespace :private do
+    resources :conversations, only: [:create] do
+      member do
+        post :close
+      end
+    end
+    resources :messages, only: [:index, :create]
+  end
 end

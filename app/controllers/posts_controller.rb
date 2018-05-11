@@ -16,6 +16,9 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    if user_signed_in?
+      @message_has_been_sent = conversation_exist?
+    end
   end
 
   # GET /posts/new
@@ -115,4 +118,9 @@ class PostsController < ApplicationController
       # render :json => @categories
       # return
     end
+
+    def conversation_exist?
+      Private::Conversation.between_users(current_user.id, @post.user.id).present?
+    end
+
 end
