@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   belongs_to :category
   validates :title, presence: true, length: { minimum: 5, maximum: 255 }
   validates :content, presence: true, length: { minimum: 5, maximum: 255 }
-  validates :category_id, presence: true, length: { minimum: 5, maximum: 255 }
+  validates :category_id, presence: true
 
   default_scope -> { includes(:user).order(created_at: :desc) }
 
